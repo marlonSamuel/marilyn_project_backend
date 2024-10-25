@@ -1,5 +1,6 @@
 
 import { Defect } from "./DefectEntitie";
+import { Integration } from "./IntegrationEntitie";
 import { Milestone } from "./MilestoneEntitie";
 import { Project } from "./ProjectEntitie";
 import { ProjectTaskView } from "./ProjectTaskView";
@@ -10,6 +11,7 @@ import { TestCase } from "./TestCasesEntitie";
 import { TestPlan } from "./TestPlanEntitie";
 import { TestScenario } from "./TestScenarios";
 import { User } from "./UserEntitie";
+import { WorkFlowJobEntitie } from "./WorkflowJobEntitie";
 
 TestPlan.belongsTo(User, {
     foreignKey: 'created_by',
@@ -37,6 +39,16 @@ Task.belongsTo(Milestone, {
 });
 
 TestPlan.belongsTo(Project, {
+    foreignKey: 'project_id',
+    as: 'project',
+});
+
+Integration.belongsTo(Project, {
+    foreignKey: 'projectId',
+    as: 'project',
+});
+
+WorkFlowJobEntitie.belongsTo(Project, {
     foreignKey: 'project_id',
     as: 'project',
 });
@@ -76,5 +88,15 @@ Defect.belongsTo(TestCase, {
 Defect.belongsTo(User, {
     foreignKey: 'assigned_to',
     as: 'assigned' // alias para acceder al TestScenario relacionado
+});
+
+Project.hasMany(Integration, {
+    foreignKey: 'projectId',
+    as: 'integrations',
+});
+
+Project.hasMany(WorkFlowJobEntitie, {
+    foreignKey: 'project_id',
+    as: 'workflow_jobs',
 });
 

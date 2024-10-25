@@ -17,6 +17,7 @@ import { ProjectTestView } from './ProjectTestView';
 import { Integration } from './IntegrationEntitie';
 
 import './Association';
+import { WorkFlowJobEntitie } from './WorkflowJobEntitie';
 
 export {
     User,
@@ -32,5 +33,6 @@ export {
     Audit,
     ProjectTaskView,
     ProjectTestView,
-    Integration
+    Integration,
+    WorkFlowJobEntitie
 }

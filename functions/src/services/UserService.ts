@@ -14,8 +14,8 @@ export class UserService extends BaseController {
             //let data = await User.findAll({include: 'BarberEntitie'});
             const data = await User.findAll();
             return data;
-        } catch (error) {
-            console.log(error)
+        } catch (error:any) {
+            throw new ApplicationException(error.message)
         }
         
     }

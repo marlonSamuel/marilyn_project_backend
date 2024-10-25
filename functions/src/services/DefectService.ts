@@ -7,9 +7,9 @@ import { IDefectDto } from "./dtos/Defect";
 export class DefectService extends BaseController {
 
     //lista de defectos
-    async getAll(){
+    async getAll(user_id = 0){
         try {
-            const data = await Defect.findAll({
+            let data = await Defect.findAll({
                 include: [
                     {model: TestCase, as: 'testcase',
                         include: [
@@ -27,6 +27,10 @@ export class DefectService extends BaseController {
                     {model: User, as: 'assigned'}
                 ]
             });
+
+            if(user_id){
+                data = data.filter((x: any)=>x.assigned_to === user_id)
+            }
             return data;
         } catch (error) {
             console.log(error)

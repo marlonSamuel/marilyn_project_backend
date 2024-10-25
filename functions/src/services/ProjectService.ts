@@ -4,7 +4,7 @@ import { ApplicationException } from "../common/application.exception";
 import { IUserDto } from "./dtos/IUserDto";
 import jwt from 'jsonwebtoken';
 import { Op } from "sequelize";
-import { Project } from "./entities/models";
+import { Integration, Project, WorkFlowJobEntitie } from "./entities/models";
 import { sequelize } from "../common/mysql.persistence";
 import { IProjectDto } from "./dtos/ProjectDto";
 import moment from "moment";
@@ -100,7 +100,15 @@ export class ProjectService extends BaseController {
     async getByEnviroment(env: string){
         try {
             //let data = await UserEntitie.findAll({include: 'BarberEntitie'});
-            const data = await Project.findAll({where: {enviroment: env}});
+            const data = await Project.findAll({where: {enviroment: env},
+                include: [{
+                    model: Integration,
+                    as: 'integrations'
+                },{
+                    model: WorkFlowJobEntitie,
+                    as: 'workflow_jobs'
+                }]
+            });
             return data;
         } catch (error:any) {
             throw new ApplicationException(error.message)
@@ -133,6 +141,8 @@ export class ProjectService extends BaseController {
             row.end_date = moment(data.end_date);
             row.status = data.status;
             row.enviroment = data.enviroment;
+            row.repository_name = data.repository_name;
+            row.url_repository = data.url_repository;
             await row.save();
             return {
                 valid: true

@@ -20,7 +20,8 @@ export class DefectController extends BaseController {
     ])
     public async getAll(req: Request, res: Response) {
         try {
-            let data = await this.defectService.getAll();
+            const user_id = req.query.user_id;
+            let data = await this.defectService.getAll(Number(user_id));
             res.send(data);
         } catch (error) {
             this.handleException(error, res);

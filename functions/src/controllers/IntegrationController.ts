@@ -9,6 +9,7 @@ import { DefectService } from '../services/DefectService';
 import { Next } from 'mysql2/typings/mysql/lib/parsers/typeCast';
 import { IntegrationService } from '../services/IntegrationService';
 import { IntegrationDto } from '../services/dtos/Integration';
+import { IWorkflowJob } from '../services/dtos/IworkflowJob';
 const crypto = require('crypto');
 
 @route('/integrations')
@@ -67,7 +68,30 @@ export class IntegrationController extends BaseController {
 
                   return res.status(200).send('Informacion del push procesada');
                 
-            } else if (eventType === 'workflow_job') {
+            } else if (eventType === 'workflow_job' && data.action === 'completed') {
+
+                const job = data.workflow_job;
+
+                const job_data = {
+                    job_id: job.id,
+                    run_id: job.run_id,
+                    workflow_name: job.workflow_name,
+                    head_branch: job.head_branch,
+                    run_url: job.run_url,
+                    run_attempt: 1,
+                    node_id: job.node_id,
+                    url: job.url,
+                    html_url: job.html_url,
+                    status: job.status,
+                    conclusion: job.conclusion,
+                    created_at: job.created_at,
+                    started_at: job.started_at,
+                    completed_at: job.completed_at,
+                    name: job.name,
+                    steps: JSON.stringify(job.steps)
+                } as IWorkflowJob;
+
+                await this.integrationService.createWorkFlowJob(job_data, data.repository.name,)
 
                 return res.status(200).send('Información del workflow job procesada');
             }

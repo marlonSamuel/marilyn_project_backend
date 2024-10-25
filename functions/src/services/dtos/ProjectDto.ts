@@ -6,6 +6,8 @@ interface IProjectDto {
     end_date: string;
     status: string;
     enviroment: string;
+    repository_name: string;
+    url_repository: string;
     createdAt?: string;
     updatedAt?: string;
 }

@@ -7,9 +7,9 @@ import { ITestPlanDto } from "./dtos/TestPlan";
 export class TestPlanService extends BaseController {
 
     //lista de hitos
-    async getAll(){
+    async getAll(user_id = 0){
         try {
-            const data = await TestPlan.findAll({
+            let data = await TestPlan.findAll({
                 include: [{
                     model: User,
                     as: 'createdBy'
@@ -18,6 +18,9 @@ export class TestPlanService extends BaseController {
                     as: 'assignedTo'
                 }],
             });
+            if(user_id){
+                data = data.filter((x: any) => x.assigned_to === user_id)
+            }
             return data;
         } catch (error) {
             console.log(error)

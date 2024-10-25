@@ -9,6 +9,8 @@ export const Project = sequelize.define("Project", {
     end_date: {type: DataTypes.DATE, allowNull: false},
     status: {type: DataTypes.CHAR(1), allowNull: false, defaultValue: 'p'},
     enviroment: {type: DataTypes.CHAR(1), allowNull: false, defaultValue: 'd'},
+    repository_name: {type: DataTypes.STRING(200), allowNull: false},
+    url_repository: {type: DataTypes.STRING(200), allowNull: false},
 },{
     paranoid: false,
     tableName: 'projects',

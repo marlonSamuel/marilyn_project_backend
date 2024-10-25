@@ -86,6 +86,8 @@ export class ProjectController extends BaseController {
         check('description').notEmpty(),
         check('start_date').notEmpty(),
         check('end_date').notEmpty(),
+        check('repository_name').notEmpty(),
+        check('url_repository').notEmpty(),
         
         validateFields
     ])

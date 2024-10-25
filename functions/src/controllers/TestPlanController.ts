@@ -17,7 +17,8 @@ export class TestPlanController extends BaseController {
     @before([authMiddleware])
     public async getAll(req: Request, res: Response) {
         try {
-            let data = await this.testPlanService.getAll();
+            const user_id = req.query.user_id;
+            let data = await this.testPlanService.getAll(Number(user_id));
             res.send(data);
         } catch (error) {
             this.handleException(error, res);
