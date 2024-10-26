@@ -1,4 +1,3 @@
-import {ScheduleEntitie} from './ScheduleEntitie';
 import { User } from './UserEntitie';
 import { Project } from './ProjectEntitie';
 import { Milestone } from './MilestoneEntitie';
@@ -29,7 +28,6 @@ export {
     TestCase,
     Defect,
     Note,
-    ScheduleEntitie,
     Audit,
     ProjectTaskView,
     ProjectTestView,
