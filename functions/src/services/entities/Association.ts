@@ -5,7 +5,6 @@ import { Milestone } from "./MilestoneEntitie";
 import { Project } from "./ProjectEntitie";
 import { ProjectTaskView } from "./ProjectTaskView";
 import { ProjectTestView } from "./ProjectTestView";
-import  {ScheduleEntitie}  from "./ScheduleEntitie";
 import { Task } from "./TaskEntitie";
 import { TestCase } from "./TestCasesEntitie";
 import { TestPlan } from "./TestPlanEntitie";
